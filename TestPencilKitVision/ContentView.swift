@@ -6,18 +6,28 @@
 //
 
 import SwiftUI
+import PencilKit
 
 struct ContentView: View {
+    @State var canvas = PKCanvasView()
+    @State var isDraw = true
+    @State var color = Color.white
+    @State var drawingTool: tool = .pen
+    @State var showingSecondScreen = false
+    @State var lastURL = ""
+    @State var showScreen = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        HStack {
+            DrawingView(canvas: $canvas, isDraw: $isDraw, color: $color, drawingTool: $drawingTool)
+            SideCommitView(canvas: $canvas, isDraw: $isDraw, color: $color, drawingTool: $drawingTool, showingSecondScreen: $showingSecondScreen, showScreen: $showScreen)
+                .frame(width: 400)
         }
-        .padding()
+        .ignoresSafeArea()
     }
+
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
